@@ -26,11 +26,13 @@ This is a Docker Compose configuration for Uptrace, a distributed tracing tool.
    docker-compose up -d
    ```
 
-5. Access Uptrace at `https://localhost:14317`
+5. Access Uptrace UI at `https://localhost:14318`
 
 ## Certificates
 
 To use HTTPS, you need to generate or provide your own SSL certificates. Place your certificate files in the `certs` directory and ensure they are named `server.crt` and `server.key`.
+
+For production environments, I'd recommend using Let's Encrypt or Cloudflare for obtaining valid SSL certificates. You can use certbot to generate these certificates, and renew them automatically.
 
 If using in a development environment, you can generate self-signed certificates using the Make file provided inside the folder `certs`:
 
