@@ -51,7 +51,7 @@ exporters:
   otlp/uptrace:
     endpoint: https://uptrace:4317
     tls: { insecure_skip_verify: true }
-    headers: { 'uptrace-dsn': 'https://project1_secret@localhost?grpc=4317' }
+    headers: { 'uptrace-dsn': 'https://system_secret@localhost?grpc=4317' }
 
 service:
   telemetry:

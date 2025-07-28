@@ -89,53 +89,47 @@ auth:
 seed_data:
   # Default users created on first startup
   users:
-  - key: user1 # Internal reference key (used in relationships below)
+  - key: admin # Internal reference key (used in relationships below)
     name: Admin # Display name in UI
-    email: admin@uptrace.local # Login email (must be unique)
+    email: admin@email.local # Login email (must be unique)
     password: admin # Plain text password (CHANGE THIS IMMEDIATELY!)
     email_confirmed: true
-
   # API tokens for user authentication
   # These tokens can be used for API access and programmatic operations
   user_tokens:
-  - key: user_token1 # Internal reference key
-    user_key: user1 # References user.key above
-    token: user1_secret # API token value (CHANGE THIS!)
-
+  - key: admin_token # Internal reference key
+    user_key: admin # References user.key above
+    token: admin_secret # API token value (CHANGE THIS!)
   # Organizations for multi-tenant deployments
   # Organizations group users and projects together
   orgs:
-  - key: org1 # Internal reference key
-    name: Org1 # Organization display name
-
+  - key: local # Internal reference key
+    name: Local # Organization display name
   # Organization membership and roles
   # Defines which users belong to which organizations
   org_users:
-  - key: org_user1 # Internal reference key
-    org_key: org1 # References org.key above
-    user_key: user1 # References user.key above
+  - key: org_admin # Internal reference key
+    org_key: local # References org.key above
+    user_key: admin # References user.key above
     role: owner # Role: owner, admin, or member
-
   # Projects contain telemetry data and are isolated from each other
   # Each project has its own spans, logs, metrics, and dashboards
   projects:
-  - key: project1 # Internal reference key
-    name: Project1 # Project display name
-    org_key: org1 # References org.key above
-
+  - key: system # Internal reference key
+    name: System # Project display name
+    org_key: local # References org.key above
   # Project-specific tokens for telemetry data ingestion
   # These tokens are used in OTLP DSN strings for sending data
   project_tokens:
   - key: project_token1 # Internal reference key
-    project_key: project1 # References project.key above
-    token: project1_secret # Token value for DSN (CHANGE THIS!)
-
+    project_key: system # References project.key above
+    token: system_secret # Token value for DSN (CHANGE THIS!)
   # Project user permissions
   # Controls who can access and modify project data
   project_users:
-  - key: project_user1 # Internal reference key
-    project_key: project1 # References project.key above
-    org_user_key: org_user1 # References org_user.key above
+  - key: project_admin # Internal reference key
+    project_key: system # References project.key above
+    org_user_key: org_admin # References org_user.key above
     perm_level: admin # Permission level: admin, editor, or viewer
 
 # -----------------------------------------------------------------------------
@@ -384,7 +378,7 @@ self_monitoring:
   # DSN for internal telemetry
   # Format: http://project_token@host?grpc=port
   # This can point to a project in this Uptrace instance or to the Uptrace Cloud
-  dsn: https://project1_secret@localhost:443?grpc=4317
+  dsn: https://system_secret@localhost:443?grpc=4317
 
   tls:
     insecure_skip_verify: true
